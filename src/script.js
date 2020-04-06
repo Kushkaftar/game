@@ -1,7 +1,7 @@
 'use strict';
 
 //видео с выполнением задания не смотрел специально, решил сначала попробовать самомтоятельно сделать
-
+//потом посмотрю как надо))
 
 // переменные
 const  messageStart = 'Угадай число от 1 до 100',
@@ -47,19 +47,16 @@ function startGame(random) {
         rnd = random;
     return function () {
         //debugger;
-       i++;
+        i++;
         if (i <= 10) {
             let  number = num(messageStart);
-            console.log('number = ' + number, typeof number);
             if (number !== 'false') {
                 if (number === rnd) {
                     alert('WIN');
                 } else if (number > rnd) {
-                    console.log(i, rnd);
                     alert(messageLess);
                     game();
                 } else if (number < rnd) {
-                    console.log(i, rnd);
                     alert(messageLarger);
                     game();
                 }
@@ -71,5 +68,4 @@ function startGame(random) {
 }
 
 const game = startGame(randomInteger(min, max));
-console.dir(game);
 game();
