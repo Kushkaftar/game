@@ -5,8 +5,6 @@
 
 // переменные
 const  messageStart = 'Угадай число от 1 до 100',
-    messageLess = 'Загаданное число меньше',
-    messageLarger = 'Загаданное число больше',
     messageInput = 'Введи число!',
     min = 1,
     max = 100;
@@ -44,28 +42,51 @@ const num = getNumber();
 // startGame ...
 function startGame(random) {
     let i = 0,
-        rnd = random;
+        rnd = random,
+        win = '';
     return function () {
         //debugger;
         i++;
+
         if (i <= 10) {
             let  number = num(messageStart);
             if (number !== 'false') {
                 if (number === rnd) {
-                    alert('WIN');
+                    if (confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?')) {
+                        i = 0;
+                        rnd = randomInteger(min, max);
+                        console.log( i, rnd);
+                        game();
+                    } else {
+                        win = 'end'
+                    }
                 } else if (number > rnd) {
-                    alert(messageLess);
+                    alert(`Загаданное число меньше, осталось попыток ${10 - i}`);
+                    console.log('число меньше', i, rnd);
                     game();
                 } else if (number < rnd) {
-                    alert(messageLarger);
+                    alert(`Загаданное число больше, осталось попыток ${10 - i}`);
+                    console.log('число больше', i, rnd);
                     game();
                 }
 
             }
-
+            win = 'end'
         }
+        if (win !== 'end') {
+            if (confirm('Попытки закончились, хотите сыграть еще?')) {
+                i = 0;
+                rnd = randomInteger(min, max);
+                console.log( i, rnd);
+                game();
+            }
+        }
+
     };
 }
 
 const game = startGame(randomInteger(min, max));
 game();
+alert('Пока');
+
+
